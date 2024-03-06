@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -60,8 +59,8 @@ public class LevelController : MonoBehaviour
         if (points % 5 == 0)
         {
             var x = Random.Range(10, 40);
-            var y = Random.Range(0, 15);
-            var obstacle = Instantiate(fixedLevelObjectPrefab, ToUnityPosition(x, y),
+            var y = Random.Range(0,15);
+            var obstacle = Instantiate(fixedLevelObjectPrefab, ToUnityPosition(Random.Range(10, 40), -10),
                 Quaternion.Euler(0, Random.Range(0f, 360f), 0), fixedLevelObjectContainer);
             _obstacles.Add((obstacle, new WorldPosition { X = x, Y = y }));
         }
@@ -97,6 +96,8 @@ public class LevelController : MonoBehaviour
                     Quaternion.Euler(0, Random.Range(0f, 360f), 0), fixedLevelObjectContainer);
                 _obstacles.Add((obstacle, new WorldPosition { X = x, Y = y }));
                 x += 4;
+                if (x > 40)
+                    break;
             }
         }
     }
@@ -106,10 +107,8 @@ public class LevelController : MonoBehaviour
         SetTargetAreaPosition();
         foreach (var obstacle in _obstacles)
         {
-            Debug.Log("Old: "+obstacle.WorldPosition);
             obstacle.WorldPosition.X += obstacle.WorldPosition.X > 25 ? -Random.Range(5, 15) : Random.Range(5, 15);
             obstacle.WorldPosition.Y += obstacle.WorldPosition.Y > 7.5 ? -Random.Range(4, 8) : Random.Range(4, 8);
-            Debug.Log("New: "+obstacle.WorldPosition);
         }
     }
 

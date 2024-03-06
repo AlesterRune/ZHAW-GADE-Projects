@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240563237840177654}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,7 +34,6 @@ Transform:
   m_Children:
   - {fileID: 181502497691376436}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2656715903951697630
 MonoBehaviour:
@@ -48,9 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8007970802446303565}
-  playerAliveMaterial: {fileID: 2100000, guid: ebd020a2da002b14ba2f8650231ee4c9, type: 2}
-  playerDeadMaterial: {fileID: 2100000, guid: f8ecc85e9edffc44e8ff1d39e92e8194, type: 2}
-  playerWinMaterial: {fileID: 2100000, guid: 193b5a69a2831554ba71c8adbe8f567f, type: 2}
+  playerDefaultMaterial: {fileID: 0}
+  playerDefaultColor: {r: 0.13725491, g: 0.17254902, b: 0.81960785, a: 0}
+  playerFlatColor: {r: 0.5882353, g: 0, b: 1, a: 0}
+  playerSmallColor: {r: 0.50980395, g: 0.96862745, b: 0.972549, a: 0}
+  playerLargeColor: {r: 0.59607846, g: 0.015686275, b: 0.40784314, a: 0}
   maxDirectionalVelocity: 8
 --- !u!65 &4680728437023371868
 BoxCollider:
@@ -60,9 +62,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240563237840177654}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8007970802446303565
@@ -72,10 +82,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240563237840177654}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -106,13 +127,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6859045323533435670}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 240563237840177649}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &150970589842682581
 MeshFilter:
