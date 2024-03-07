@@ -33,7 +33,7 @@ public class LevelController : MonoBehaviour
     private void Awake()
     {
         _obstacles = new List<(Transform Transform, WorldPosition WorldPosition)>();
-        _playerStart = (X: Random.Range(5, 10), Y: Random.Range(3, 12));
+        _playerStart = (X: Random.Range(2, 6), Y: Random.Range(3, 12));
         player.transform.position = ToUnityPosition(_playerStart.X, _playerStart.Y, 0.001f);
     }
     
@@ -118,11 +118,11 @@ public class LevelController : MonoBehaviour
         Debug.Log(ToLevelCoordinate(player.transform.position));
         if (IsLeft(ToLevelCoordinate(player.transform.position).X))
         {
-            _targetAreaPosition.X += Random.Range(40, 45);
+            _targetAreaPosition.X += Random.Range(43, 48);
         }
         else
         {
-            _targetAreaPosition.X += Random.Range(5, 10);
+            _targetAreaPosition.X += Random.Range(2, 7);
         }
 
         _targetAreaPosition.Y += Random.Range(3, 12);

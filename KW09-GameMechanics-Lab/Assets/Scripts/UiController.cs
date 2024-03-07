@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -12,17 +13,29 @@ public class UiController : MonoBehaviour
     private TextMeshProUGUI unlocksText;
 
     [SerializeField]
-    private Image unlocksBox; 
+    private Image unlocksBox;
+
+    [SerializeField]
+    private Image splashScreen; 
 
     [SerializeField]
     private PlayerController player;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool _running;
+
+    private void Start()
     {
         unlocksText.text = string.Empty;
-        unlocksBox.enabled = false;
         player.PointsUpdated += OnPlayerTargetReached;
+    }
+
+    private void Update()
+    {
+        if (!_running && Input.anyKey)
+        {
+            splashScreen.gameObject.SetActive(false);
+            _running = true;
+        }
     }
 
     private void OnPlayerTargetReached(int points)

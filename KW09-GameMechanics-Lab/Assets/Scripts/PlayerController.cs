@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,9 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody player;
-    
-    [SerializeField]
-    private Material playerDefaultMaterial;
 
     [SerializeField]
     private Color playerDefaultColor;
@@ -23,7 +21,20 @@ public class PlayerController : MonoBehaviour
     private Color playerLargeColor;
 
     [SerializeField]
+    private Color playerDeadColor;
+
+    [SerializeField]
     private float maxDirectionalVelocity = 8;
+
+    [SerializeField]
+    private AudioSource pickUpSound;
+    
+    [SerializeField]
+    private AudioSource unlockSound;
+    
+    [SerializeField]
+    private AudioSource gameOverSound;
+    
 
     private float _initialMaxDirectionalVelocity;
     
@@ -91,8 +102,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleShrink()
     {
-        // if (!AllowShrink || _flattening || _enlarging)
-        //     return;
+        if (!AllowShrink || _flattening || _enlarging)
+            return;
         
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -121,8 +132,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleEnlarge()
     {
-        // if (!AllowEnlarge || _flattening || _shrinking)
-        //     return;
+        if (!AllowEnlarge || _flattening || _shrinking)
+            return;
         
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -150,8 +161,8 @@ public class PlayerController : MonoBehaviour
     
     private void HandleFlatten()
     {
-        // if (!AllowFlatten || _shrinking || _enlarging)
-        //     return;        
+        if (!AllowFlatten || _shrinking || _enlarging)
+            return;        
         
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
@@ -173,17 +184,34 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
-        Debug.Log(other.tag);
         if (other.CompareTag("TargetArea"))
         {
             Points++;
+            if (Points <= 15 && Points % 5 == 0)
+                unlockSound.Play();
+            else
+                pickUpSound.Play();
             PointsUpdated?.Invoke(Points);
             TargetReached?.Invoke();
         }
         else
         {
-            WallTouched?.Invoke();
+            player.velocity = Vector3.zero;
+            MeshRenderer.material.color = playerDeadColor;
+            player.useGravity = true;
+            GetComponent<BoxCollider>().isTrigger = false;
+            gameOverSound.Play();
+            StartCoroutine(WaitForGameOverSoundToFinish(() => WallTouched?.Invoke()));
         }
+    }
+
+    private IEnumerator WaitForGameOverSoundToFinish(Action whenFinished)
+    {
+        while (gameOverSound.isPlaying)
+        {
+            yield return null;
+        }
+
+        whenFinished();
     }
 }
