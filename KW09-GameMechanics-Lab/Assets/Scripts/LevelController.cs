@@ -79,26 +79,19 @@ public class LevelController : MonoBehaviour
             var targetPosition = ToUnityPosition(obstacle.WorldPosition.X, obstacle.WorldPosition.Y);
             if ((currentPosition - targetPosition).magnitude > 0.01f)
             {
-                obstacle.Transform.position = Vector3.Slerp(currentPosition, targetPosition, Time.deltaTime * 0.2f);
+                obstacle.Transform.position = Vector3.Lerp(currentPosition, targetPosition, Time.deltaTime * 0.4f);
             }
         }
     }
 
     private void SpawnObstacles()
     {
-        for (var x = 10; x <= 40; x++)
+        for (var x = 10; x <= 40; x+=6)
         {
-            for (var y = 0; y < 15; y++)
-            {
-                if (Random.value <= 0.95f)
-                    continue;
-                var obstacle = Instantiate(fixedLevelObjectPrefab, ToUnityPosition(x, y),
-                    Quaternion.Euler(0, Random.Range(0f, 360f), 0), fixedLevelObjectContainer);
-                _obstacles.Add((obstacle, new WorldPosition { X = x, Y = y }));
-                x += 4;
-                if (x > 40)
-                    break;
-            }
+            var y = Random.Range(0, 15);
+            var obstacle = Instantiate(fixedLevelObjectPrefab, ToUnityPosition(x, y),
+                Quaternion.Euler(0, Random.Range(0f, 360f), 0), fixedLevelObjectContainer);
+            _obstacles.Add((obstacle, new WorldPosition { X = x, Y = y }));
         }
     }
 
