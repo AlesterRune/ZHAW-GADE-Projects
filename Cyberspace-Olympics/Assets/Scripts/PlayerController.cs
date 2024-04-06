@@ -1,5 +1,5 @@
-using System;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +16,9 @@ namespace CyberspaceOlympics
         [SerializeField]
         private float healRange = 0.75f;
 
+        [SerializeField]
+        private Animator skillAnimator;
+
         private void Awake()
         {
             GameStateMachine.Instance.StateChanged += state =>
@@ -25,7 +28,7 @@ namespace CyberspaceOlympics
             };
         }
 
-        void Update()
+        private void Update()
         {
             if (GameStateMachine.Instance.CurrentState is not GameState.PlayerPhase)
             {
@@ -38,21 +41,24 @@ namespace CyberspaceOlympics
                 transform.position += moveAction.ReadValue<Vector2>().ToVector3() * (Time.deltaTime * movementSpeed);
         }
 
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(transform.position, healRange);
+        }
+
         private void OnInteract(InputValue input)
         {
             if (GameStateMachine.Instance.CurrentState is not GameState.PlayerPhase)
             {
                 return;
             }
-            
-            var position = transform.position;
 
-            var playerFieldUnits = GameObject.FindGameObjectsWithTag("PlayerFieldUnit");
-            var unitsInRange = playerFieldUnits.Where(unit => unit.transform.position.InRange(position, healRange)).ToArray();
-            
-            foreach (var unit in unitsInRange)
+            var hits = Physics2D.OverlapCircleAll(transform.position.ToVector2(), healRange);
+            skillAnimator.SetTrigger("Heal");
+            foreach (var hit in hits)
             {
-                unit.GetComponent<FieldUnitController>().Hp += 100;
+                var unitController = hit.GetComponent<FieldUnitController>();
+                unitController.Hp += 100;
             }
         }
     }
