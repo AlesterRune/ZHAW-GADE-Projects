@@ -3127,7 +3127,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1935132297
 MonoBehaviour:
@@ -3145,6 +3145,7 @@ MonoBehaviour:
   overlayBackground: {fileID: 1837338159}
   startButton: {fileID: 467974560}
   nextButton: {fileID: 1313779676}
+  cursorVisual: {fileID: 2800000, guid: 00c8a6f5b99898f4c88ce88030bd7195, type: 3}
 --- !u!1 &1940143487
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ namespace CyberspaceOlympics
         
         [SerializeField]
         private Button nextButton;
+        
+        [SerializeField]
+        private Texture2D cursorVisual;
 
         private static void NextRound()
         {
@@ -29,6 +32,9 @@ namespace CyberspaceOlympics
             nextButton.interactable = false; 
             startButton.onClick.AddListener(StartGame);
             nextButton.onClick.AddListener(NextRound);
+            
+            var hotspot = new Vector2(cursorVisual.width / 2, cursorVisual.height / 2);
+            Cursor.SetCursor(cursorVisual, hotspot, CursorMode.Auto);
             
             GameStateMachine.Instance.StateChanged += OnGameStateChanged;
         }
