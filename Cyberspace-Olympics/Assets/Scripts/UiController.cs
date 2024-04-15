@@ -20,6 +20,8 @@ namespace CyberspaceOlympics
         [SerializeField]
         private Texture2D cursorVisual;
 
+        public static UiController Instance { get; private set; }
+
         private static void NextRound()
         {
             GameStateMachine.Instance.TransitionTo(GameState.RunningSimulation);
@@ -27,14 +29,12 @@ namespace CyberspaceOlympics
 
         private void Awake()
         {
+            Instance = this;
             menuBackground.SetEnabled(true);
             overlayBackground.SetEnabled(false);
             nextButton.interactable = false; 
             startButton.onClick.AddListener(StartGame);
             nextButton.onClick.AddListener(NextRound);
-            
-            var hotspot = new Vector2(cursorVisual.width / 2, cursorVisual.height / 2);
-            Cursor.SetCursor(cursorVisual, hotspot, CursorMode.Auto);
             
             GameStateMachine.Instance.StateChanged += OnGameStateChanged;
         }

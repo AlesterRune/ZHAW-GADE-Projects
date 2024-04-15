@@ -14,5 +14,10 @@ namespace CyberspaceOlympics
         {
             return new Vector2(self.x, self.y);
         }
+
+        public static Vector3 Flatten(this Vector3 self)
+        {
+            return new Vector3(self.x, self.y);
+        }
     }
 }

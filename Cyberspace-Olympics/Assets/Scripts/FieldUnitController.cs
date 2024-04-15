@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,6 +17,8 @@ namespace CyberspaceOlympics
 
         [SerializeField]
         private int damageCalcs = 0;
+
+        private int _damageCache;
         
         public int Hp
         {
@@ -26,6 +27,24 @@ namespace CyberspaceOlympics
         }
         
         public bool IsHurt { get; internal set; }
+
+        public void UpdateHp(int value, bool isCritical = false)
+        {
+            Hp += value;
+            TextPopupController.SignedNumeric(transform.position, value, isCritical);
+        }
+
+        private void Start()
+        {
+            GameStateMachine.Instance.StateChanged += state =>
+            {
+                if (state is GameState.PlayerPhase)
+                {
+                    UpdateHp(-_damageCache, _damageCache > Hp / 2 || _damageCache > 130);
+                    _damageCache = 0;
+                }
+            };
+        }
 
         private void Update()
         {
@@ -41,13 +60,15 @@ namespace CyberspaceOlympics
             }
             
             var dieRoll = Random.Range(1, 100);
-            Hp -= dieRoll switch
+            var damage = dieRoll switch
             {
                 100 => 10,
                 <50 => 0,
                 <80 => 1,
                 _ => 2
             };
+
+            _damageCache += damage;
             damageCalcs++;
         }
     }
