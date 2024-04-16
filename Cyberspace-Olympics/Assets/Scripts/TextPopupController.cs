@@ -11,10 +11,6 @@ public class TextPopupController : MonoBehaviour
 
     private Color _textColor;
     
-    private float _aliveTime = 1f;
-    private float _floatSpeed = 2f;
-    private float _vanishSpeed = 3f;
-    
     public static TextPopupController SignedNumeric(Vector3 position, int value, bool isCritical = false)
     {
         var popup = Instantiate(SceneAssets.Instance.TextPopupPrefab, position, Quaternion.identity);

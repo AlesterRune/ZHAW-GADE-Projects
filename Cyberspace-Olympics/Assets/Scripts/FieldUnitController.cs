@@ -30,6 +30,11 @@ namespace CyberspaceOlympics
 
         public void UpdateHp(int value, bool isCritical = false)
         {
+            if (Hp == 0 && value <= 0 || Hp == maxHp && value >= 0)
+            {
+                return;
+            }
+            
             Hp += value;
             TextPopupController.SignedNumeric(transform.position, value, isCritical);
         }
@@ -38,7 +43,7 @@ namespace CyberspaceOlympics
         {
             GameStateMachine.Instance.StateChanged += state =>
             {
-                if (state is GameState.PlayerPhase)
+                if (state is GameState.PlayerPhase && _damageCache > 0)
                 {
                     UpdateHp(-_damageCache, _damageCache > Hp / 2 || _damageCache > 130);
                     _damageCache = 0;
@@ -70,6 +75,12 @@ namespace CyberspaceOlympics
 
             _damageCache += damage;
             damageCalcs++;
+
+            if (damageCalcs % 50 == 0)
+            {
+                UpdateHp(-_damageCache);
+                _damageCache = 0;
+            }
         }
     }
 }
