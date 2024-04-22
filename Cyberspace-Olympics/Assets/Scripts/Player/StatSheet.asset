@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff84c6688a64656971e53d1a640d160, type: 3}
+  m_Name: StatSheet
+  m_EditorClassIdentifier: 
+  <Agility>k__BackingField: 0
+  fortitude: 0
+  might: 0
+  learning: 0
+  logic: 0
+  perception: 0
+  will: 0
+  deception: 0
+  persuasion: 0
+  presence: 0
+  alteration: 0
+  creation: 0
+  energy: 0
+  entropy: 0
+  influence: 0
+  movement: 0
+  prescience: 0
+  protection: 0

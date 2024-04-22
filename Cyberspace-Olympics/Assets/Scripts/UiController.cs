@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace CyberspaceOlympics
@@ -16,9 +18,15 @@ namespace CyberspaceOlympics
         
         [SerializeField]
         private Button nextButton;
+
+        [SerializeField]
+        private Button restartButton;
         
         [SerializeField]
-        private Texture2D cursorVisual;
+        private TMP_Text simulationInfo;
+        
+        [SerializeField]
+        private TMP_Text gameInfo;
 
         public static UiController Instance { get; private set; }
 
@@ -32,17 +40,32 @@ namespace CyberspaceOlympics
             Instance = this;
             menuBackground.SetEnabled(true);
             overlayBackground.SetEnabled(false);
+            gameInfo.enabled = false;
+            restartButton.enabled = false;
             nextButton.interactable = false; 
             startButton.onClick.AddListener(StartGame);
             nextButton.onClick.AddListener(NextRound);
+            restartButton.onClick.AddListener(Restart);
             
             GameStateMachine.Instance.StateChanged += OnGameStateChanged;
         }
 
+        private void Restart()
+        {
+            GameStateMachine.Instance.Reset();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         private void OnGameStateChanged(GameState state)
         {
-            overlayBackground.SetEnabled(state is GameState.RunningSimulation);
+            overlayBackground.SetEnabled(state is GameState.RunningSimulation or GameState.PlayerLose or GameState.PlayerWin);
+            simulationInfo.enabled = state is GameState.RunningSimulation;
             nextButton.interactable = state is GameState.PlayerPhase;
+            
+            restartButton.enabled = state is GameState.PlayerLose or GameState.PlayerWin;
+            restartButton.interactable = state is GameState.PlayerLose or GameState.PlayerWin;
+            gameInfo.SetText(state.ToString());
+            gameInfo.enabled = state is GameState.PlayerLose or GameState.PlayerWin;
         }
 
         private void StartGame()

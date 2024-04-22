@@ -56,7 +56,7 @@ namespace CyberspaceOlympics
             foreach (var hit in hits)
             {
                 var unitController = hit.GetComponent<FieldUnitController>();
-                unitController.UpdateHp(100);
+                unitController.UpdateHp(25);
             }
         }
     }

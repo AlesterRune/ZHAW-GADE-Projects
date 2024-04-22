@@ -30,7 +30,7 @@ public class TextPopupController : MonoBehaviour
 
     private void Start()
     {
-        var targetPosition = transform.position + new Vector3(Random.Range(0.2f, 0.6f), 1f);
+        var targetPosition = transform.position + new Vector3(Random.Range(-1f, 1f), 2f);
         transform
             .DOMove(targetPosition, 1f)
             .SetEase(Ease.Linear)

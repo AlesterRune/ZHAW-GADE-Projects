@@ -31,6 +31,8 @@ namespace CyberspaceOlympics
             }
         }
 
+        public void Reset() => CurrentState = GameState.Start;
+
         /// <summary>
         ///     Moves the state machine to the desired state.
         /// </summary>
@@ -39,6 +41,8 @@ namespace CyberspaceOlympics
         ///         <see cref="GameState.Start" /> >> <see cref="GameState.RunningSimulation" /><br/>
         ///         <see cref="GameState.PlayerPhase" /> >> <see cref="GameState.RunningSimulation" /><br/>
         ///         <see cref="GameState.RunningSimulation" /> >> <see cref="GameState.PlayerPhase" />
+        ///         <see cref="GameState.RunningSimulation" /> >> <see cref="GameState.PlayerLose" />
+        ///         <see cref="GameState.RunningSimulation" /> >> <see cref="GameState.PlayerWin" />
         /// </remarks>
         /// <param name="nextState">
         ///     The desired <see cref="GameState" />
@@ -53,7 +57,7 @@ namespace CyberspaceOlympics
                 case GameState.Start or GameState.PlayerPhase when nextState is GameState.RunningSimulation:
                     CurrentState = nextState;
                     return true;
-                case GameState.RunningSimulation when nextState is GameState.PlayerPhase:
+                case GameState.RunningSimulation when nextState is GameState.PlayerPhase or GameState.PlayerLose or GameState.PlayerWin:
                     CurrentState = nextState;
                     return true;
                 default:
@@ -66,6 +70,8 @@ namespace CyberspaceOlympics
     {
         Start,
         RunningSimulation,
-        PlayerPhase
+        PlayerPhase,
+        PlayerWin,
+        PlayerLose
     }
 }
