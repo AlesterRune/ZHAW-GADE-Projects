@@ -28,6 +28,8 @@ namespace CyberspaceOlympics
 
         private void Update()
         {
+            // Debug.Log(MouseUtils.Position());
+            // Debug.Log(MouseUtils.WorldPosition(Camera.main));
             if (GameStateMachine.Instance.CurrentState is not GameState.PlayerPhase)
             {
                 return;
