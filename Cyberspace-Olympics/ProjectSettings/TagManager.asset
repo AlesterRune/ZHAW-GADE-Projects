@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerFieldUnit
   - OpponentFieldUnit
+  - Tile
   layers:
   - Default
   - TransparentFX
