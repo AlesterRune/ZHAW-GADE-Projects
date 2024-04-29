@@ -1,0 +1,8 @@
+Tool: MyEdit SFX Generator
+
+Use: I used the tool to generate a simple cheering sound for when one of the NPC characters in the game lands a critical hit.
+
+Prompt: 
+	"sports fans cheering, short and finished"
+	(I tried to use "sports fans cheering, fade out" instead after using this one as I was not fully satisfied with the second half of the sound. 
+	Unfortunatelly I had hit the cap of two prompts a day for a free user, so I decided to manually shorten the sound and add a fade out using AudaCity.)

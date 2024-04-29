@@ -22,6 +22,9 @@ namespace CyberspaceOlympics
         [SerializeField]
         private int threatLevel = 10;
 
+        [SerializeField]
+        private AudioSource critCheer;
+
         private int _damageCache;
         
         public int Hp
@@ -41,6 +44,11 @@ namespace CyberspaceOlympics
             if (Hp == 0 && value <= 0 || Hp == maxHp && value >= 0)
             {
                 return;
+            }
+
+            if (isCritical)
+            {
+                critCheer?.Play();
             }
             
             Hp += value;
