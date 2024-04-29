@@ -1,11 +1,12 @@
-using System;
+using System.Text;
+using CyberspaceOlympics.Definitions;
+using JetBrains.Annotations;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace CyberspaceOlympics
 {
     [RequireComponent(typeof(Animator))]
-    public class FieldUnitController : MonoBehaviour
+    public class FieldUnitController : MonoBehaviour, ITooltipContentProvider
     {
         [SerializeField]
         private Animator animator;
@@ -23,7 +24,8 @@ namespace CyberspaceOlympics
         private int threatLevel = 10;
 
         [SerializeField]
-        private AudioSource critCheer;
+        [CanBeNull]
+        private AudioSource critCheer = null;
 
         private int _damageCache;
         
@@ -46,7 +48,7 @@ namespace CyberspaceOlympics
                 return;
             }
 
-            if (isCritical)
+            if (isCritical && critCheer is not null)
             {
                 critCheer?.Play();
             }
@@ -85,24 +87,25 @@ namespace CyberspaceOlympics
             {
                 return;
             }
-            
-            // var dieRoll = Random.Range(1, 100);
-            // var damage = dieRoll switch
-            // {
-            //     100 => 10,
-            //     <50 => 0,
-            //     <80 => 1,
-            //     _ => 2
-            // };
-            //
-            // _damageCache += damage;
-            // damageCalcs++;
-            //
-            // if (damageCalcs % 50 == 0)
-            // {
-            //     UpdateHp(-_damageCache);
-            //     _damageCache = 0;
-            // }
+        }
+
+        public string GetTooltipHeader()
+        {
+            return threatLevel switch
+            {
+                15 => "Tank Unit",
+                12 => "Off-Tank Unit",
+                11 => "Melee DPS Unit",
+                _ => "Range DPS Unit"
+            };
+        }
+
+        public string GetTooltipContent()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine($"HP: {hp} / {maxHp}");
+            builder.AppendLine($"Thread: {ThreatLevel}");
+            return builder.ToString();
         }
     }
 }

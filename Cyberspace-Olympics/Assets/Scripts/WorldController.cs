@@ -4,10 +4,10 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class WorldController : MonoBehaviour
 {
-    private const int North = 10;
-    private const int East = 25;
-    private const int South = -10;
-    private const int West = -25;
+    private const int North = 7;
+    private const int East = 16;
+    private const int South = -7;
+    private const int West = -16;
     private const int Center = 0;
     
     [SerializeField]
