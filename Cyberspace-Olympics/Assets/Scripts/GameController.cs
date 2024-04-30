@@ -71,6 +71,8 @@ namespace CyberspaceOlympics
         private void SimulateFight()
         {
             const int ac = 12;
+            var playerDie = RpgDieBuilder.OfType(DieType.D20).Build();
+            var opponentDie = RpgDieBuilder.OfType(DieType.D20).Build();
             foreach (var (player, npc) in _playerUnits.Zip(_npcUnits, (p, n) => (Player: p, Npc: n)))
             {
                 if (player.Hp > 0)
@@ -79,7 +81,7 @@ namespace CyberspaceOlympics
                         .Where(u => u.Hp > 0)
                         .OrderByDescending(u => u.ThreatLevel)
                         .FirstOrDefault();
-                    var roll = Random.Range(1, 20);
+                    var roll = playerDie.Roll();
                     if (roll > ac)
                     {
                         opponent?.UpdateHp(-Random.Range(2, 12), roll == 20);
@@ -92,7 +94,7 @@ namespace CyberspaceOlympics
                         .Where(u => u.Hp > 0)
                         .OrderByDescending(u => u.ThreatLevel)
                         .FirstOrDefault();
-                    var roll = Random.Range(1, 20);
+                    var roll = opponentDie.Roll();
                     if (roll > ac)
                     {
                         opponent?.UpdateHp(-Random.Range(2, 12), roll == 20);
