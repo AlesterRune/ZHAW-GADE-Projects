@@ -39,6 +39,8 @@ namespace CyberspaceOlympics
         
         public bool IsHurt { get; internal set; }
         
+        public bool IsDead { get; internal set; }
+        
         public bool IsPlayerFieldUnit { get; private set; }
 
         public void UpdateHp(int value, bool isCritical = false)
@@ -55,6 +57,30 @@ namespace CyberspaceOlympics
             
             Hp += value;
             TextPopupController.SignedNumeric(transform.position, value, isCritical);
+        }
+
+        public string GetTooltipHeader()
+        {
+            return threatLevel switch
+            {
+                15 => "Tank Unit",
+                12 => "Off-Tank Unit",
+                11 => "Melee DPS Unit",
+                _ => "Range DPS Unit"
+            };
+        }
+
+        public string GetTooltipContent()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine($"HP: {hp} / {maxHp}");
+            builder.AppendLine($"Thread: {ThreatLevel}");
+            return builder.ToString();
+        }
+
+        public void PlayAttack()
+        {
+            animator.SetTrigger("TAttack");
         }
 
         private void Awake()
@@ -78,7 +104,9 @@ namespace CyberspaceOlympics
         private void Update()
         {
             IsHurt = hp <= 25;
+            IsDead = hp == 0;
             animator.SetBool("IsHurt", IsHurt);
+            animator.SetBool("IsDead", IsDead);
         }
 
         private void FixedUpdate()
@@ -87,25 +115,6 @@ namespace CyberspaceOlympics
             {
                 return;
             }
-        }
-
-        public string GetTooltipHeader()
-        {
-            return threatLevel switch
-            {
-                15 => "Tank Unit",
-                12 => "Off-Tank Unit",
-                11 => "Melee DPS Unit",
-                _ => "Range DPS Unit"
-            };
-        }
-
-        public string GetTooltipContent()
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine($"HP: {hp} / {maxHp}");
-            builder.AppendLine($"Thread: {ThreatLevel}");
-            return builder.ToString();
         }
     }
 }

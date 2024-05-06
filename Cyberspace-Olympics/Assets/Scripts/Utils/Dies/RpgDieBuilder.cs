@@ -5,8 +5,8 @@ namespace CyberspaceOlympics
 {
     public class RpgDieBuilder
     {
+        private readonly List<DieType> _statDies = new();
         private DieType _baseDie;
-        private List<DieType> _statDies;
         private int? _seed = null;
 
         private RpgDieBuilder()

@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638506068360571284
+  platformSettingsDirtyTick: 638506266610256048
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -142,7 +142,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: Fan_0
+  - name: Fan_normal
     originalName: 
     pivot: {x: 0.5, y: 0.6666667}
     alignment: 9
@@ -162,7 +162,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Fan_1
+  - name: Fan_cheer
     originalName: 
     pivot: {x: 0.5, y: 0.5714286}
     alignment: 9
