@@ -45,7 +45,7 @@ namespace CyberspaceOlympics
 
         public void UpdateHp(int value, bool isCritical = false)
         {
-            if (Hp == 0 && value <= 0 || Hp == maxHp && value >= 0)
+            if (Hp == 0 || Hp == maxHp && value >= 0)
             {
                 return;
             }

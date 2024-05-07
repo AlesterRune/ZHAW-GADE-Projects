@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,11 +20,17 @@ namespace CyberspaceOlympics
 
         private void Awake()
         {
+            ResetPosition();
             GameStateMachine.Instance.StateChanged += state =>
             {
                 if (state is GameState.RunningSimulation)
-                    transform.position = new Vector3(6f, -12.5f);
+                    ResetPosition();
             };
+        }
+
+        private void ResetPosition()
+        {
+            transform.position = new Vector3(6f, -12.5f);
         }
 
         private void Update()
@@ -34,11 +41,13 @@ namespace CyberspaceOlympics
             {
                 return;
             }
-            
-            var moveAction = playerInput.actions["Move"];
-            
-            if (moveAction.IsPressed())
-                transform.position += moveAction.ReadValue<Vector2>().ToVector3() * (Time.deltaTime * movementSpeed);
+
+            transform.position = MouseUtils.WorldPosition(Camera.main);
+            //
+            // var moveAction = playerInput.actions["Move"];
+            //
+            // if (moveAction.IsPressed())
+            //     transform.position += moveAction.ReadValue<Vector2>().ToVector3() * (Time.deltaTime * movementSpeed);
         }
 
         private void OnDrawGizmosSelected()
@@ -46,15 +55,29 @@ namespace CyberspaceOlympics
             Gizmos.DrawWireSphere(transform.position, healRange);
         }
 
+        private void OnMouseUp()
+        {
+            TriggerHeal();
+        }
+
         private void OnInteract(InputValue input)
+        {
+            TriggerHeal();
+        }
+
+        private void TriggerHeal()
         {
             if (GameStateMachine.Instance.CurrentState is not GameState.PlayerPhase)
             {
                 return;
             }
 
-            var hits = Physics2D.OverlapCircleAll(transform.position.ToVector2(), healRange);
-            skillAnimator.SetTrigger("Heal");
+            var hits = Physics2D.OverlapCircleAll(transform.position.ToVector2(), healRange).Where(h => h.CompareTag("PlayerFieldUnit")).ToArray();
+            if (hits.Any())
+            {
+                skillAnimator.SetTrigger("Heal");
+            }
+            
             foreach (var hit in hits)
             {
                 var unitController = hit.GetComponent<FieldUnitController>();
