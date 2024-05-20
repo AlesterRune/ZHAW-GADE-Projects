@@ -1,5 +1,4 @@
-﻿using CyberspaceOlympics.Definitions;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CyberspaceOlympics
@@ -15,7 +14,7 @@ namespace CyberspaceOlympics
                 return;
             }
             
-            TooltipSystem.SetPosition(transform.position);
+            TooltipSystem.SetPosition(transform.position, new Vector2(0, -62));
             var header = _tooltipContentProvider?.GetTooltipHeader() ?? string.Empty;
             var content = _tooltipContentProvider?.GetTooltipContent() ?? string.Empty;
             TooltipSystem.Show(content, header);

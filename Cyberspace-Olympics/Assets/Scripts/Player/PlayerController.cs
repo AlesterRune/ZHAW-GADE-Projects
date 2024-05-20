@@ -16,7 +16,7 @@ namespace CyberspaceOlympics
         private float healRange = 0.75f;
 
         [SerializeField]
-        private Animator skillAnimator;
+        private Transform healVisualPrefab;
 
         private void Awake()
         {
@@ -75,7 +75,7 @@ namespace CyberspaceOlympics
             var hits = Physics2D.OverlapCircleAll(transform.position.ToVector2(), healRange).Where(h => h.CompareTag("PlayerFieldUnit")).ToArray();
             if (hits.Any())
             {
-                skillAnimator.SetTrigger("Heal");
+                Instantiate(healVisualPrefab, transform.position, Quaternion.identity);
             }
             
             foreach (var hit in hits)

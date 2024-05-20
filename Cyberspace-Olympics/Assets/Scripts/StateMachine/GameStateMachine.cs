@@ -60,6 +60,9 @@ namespace CyberspaceOlympics
                 case GameState.RunningSimulation when nextState is GameState.PlayerPhase or GameState.PlayerLose or GameState.PlayerWin:
                     CurrentState = nextState;
                     return true;
+                case GameState.PlayerWin or GameState.PlayerLose when nextState is GameState.RunningSimulation:
+                    CurrentState = nextState;
+                    return true;
                 default:
                     return false;
             }

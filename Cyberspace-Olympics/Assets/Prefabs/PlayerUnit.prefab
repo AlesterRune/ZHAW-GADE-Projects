@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 659878507204936834}
   - component: {fileID: 4017015980728024973}
+  - component: {fileID: 3885901330469093817}
+  - component: {fileID: 3942344812119525731}
   - component: {fileID: 3000408105227784063}
   - component: {fileID: 196003810609106042}
-  - component: {fileID: 3885901330469093817}
   - component: {fileID: 1441622766525110934}
   m_Layer: 0
   m_Name: PlayerUnit
@@ -54,6 +55,30 @@ MonoBehaviour:
   damageCalcs: 0
   threatLevel: 10
   critCheer: {fileID: 0}
+--- !u!114 &3885901330469093817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123583018516958217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543a1cf31ad94456ad8b60496805fea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3942344812119525731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123583018516958217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e47ca14083549269b005ccd3e0037fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &3000408105227784063
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -127,18 +152,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3885901330469093817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123583018516958217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 543a1cf31ad94456ad8b60496805fea1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1441622766525110934
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,12 +1,10 @@
-using System.Text;
-using CyberspaceOlympics.Definitions;
 using JetBrains.Annotations;
 using UnityEngine;
 
 namespace CyberspaceOlympics
 {
     [RequireComponent(typeof(Animator))]
-    public class FieldUnitController : MonoBehaviour, ITooltipContentProvider
+    public class FieldUnitController : MonoBehaviour
     {
         [SerializeField]
         private Animator animator;
@@ -26,8 +24,10 @@ namespace CyberspaceOlympics
         [SerializeField]
         [CanBeNull]
         private AudioSource critCheer = null;
-
+        
         private int _damageCache;
+
+        public int MaxHp => maxHp;
         
         public int Hp
         {
@@ -57,25 +57,6 @@ namespace CyberspaceOlympics
             
             Hp += value;
             TextPopupController.SignedNumeric(transform.position, value, isCritical);
-        }
-
-        public string GetTooltipHeader()
-        {
-            return threatLevel switch
-            {
-                15 => "Tank Unit",
-                12 => "Off-Tank Unit",
-                11 => "Melee DPS Unit",
-                _ => "Range DPS Unit"
-            };
-        }
-
-        public string GetTooltipContent()
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine($"HP: {hp} / {maxHp}");
-            builder.AppendLine($"Thread: {ThreatLevel}");
-            return builder.ToString();
         }
 
         public void PlayAttack()

@@ -24,9 +24,9 @@ namespace CyberspaceOlympics
             _instance.TooltipInstance.gameObject.SetActive(false);
         }
 
-        public static void SetPosition(Vector2 position)
+        public static void SetPosition(Vector2 position, Vector2 offset)
         {
-            _instance.TooltipInstance.transform.position = _instance.Camera.WorldToScreenPoint(position);
+            _instance.TooltipInstance.transform.position = _instance.Camera.WorldToScreenPoint(position) + offset.ToVector3();
         }
         
         private void Awake()

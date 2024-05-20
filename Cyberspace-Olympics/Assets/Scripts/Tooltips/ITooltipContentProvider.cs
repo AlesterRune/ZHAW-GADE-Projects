@@ -1,4 +1,4 @@
-﻿namespace CyberspaceOlympics.Definitions
+﻿namespace CyberspaceOlympics
 {
     public interface ITooltipContentProvider
     {
