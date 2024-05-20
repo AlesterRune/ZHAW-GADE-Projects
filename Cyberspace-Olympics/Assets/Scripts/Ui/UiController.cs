@@ -44,7 +44,7 @@ namespace CyberspaceOlympics
             menuGo.SetActive(!menuGo.activeSelf);
         }
 
-        private static void NextRound()
+        private static void StartSimulation()
         {
             GameStateMachine.Instance.TransitionTo(GameState.RunningSimulation);
         }
@@ -56,7 +56,7 @@ namespace CyberspaceOlympics
             gameInfo.enabled = false;
             hudActionButtonButton.interactable = false; 
             startButton.onClick.AddListener(StartGame);
-            hudActionButtonButton.onClick.AddListener(NextRound);
+            hudActionButtonButton.onClick.AddListener(StartSimulation);
             exitButton.onClick.AddListener(ExitGame);
             
             GameStateMachine.Instance.StateChanged += OnGameStateChanged;
@@ -73,19 +73,27 @@ namespace CyberspaceOlympics
 #endif
         }
 
-        private void Restart()
-        {
-            GameStateMachine.Instance.Reset();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
         private void OnGameStateChanged(GameState state)
         {
             simulationInfo.enabled = state is GameState.RunningSimulation;
-            hudActionButtonButton.interactable = state is GameState.PlayerPhase;
-            
+            hudActionButtonButton.interactable = state is GameState.PlayerPhase or GameState.PlayerLose or GameState.PlayerWin;
             gameInfo.SetText(state.ToString());
             gameInfo.enabled = state is GameState.PlayerLose or GameState.PlayerWin;
+
+            if (state is GameState.PlayerLose or GameState.PlayerWin)
+            {
+                hudActionButtonButton.GetComponentInChildren<TMP_Text>().SetText("Next Round");
+                hudActionButtonButton.onClick.RemoveAllListeners();
+                hudActionButtonButton.onClick.AddListener(NextRound);
+            }
+        }
+
+        private void NextRound()
+        {
+            hudActionButtonButton.onClick.RemoveAllListeners();
+            hudActionButtonButton.onClick.AddListener(StartSimulation);
+            hudActionButtonButton.GetComponentInChildren<TMP_Text>().SetText("Continue");
+            StartSimulation();
         }
 
         private void StartGame()

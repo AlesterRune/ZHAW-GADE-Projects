@@ -79,6 +79,17 @@ namespace CyberspaceOlympics
                     UpdateHp(-_damageCache, _damageCache > Hp / 2 || _damageCache > 130);
                     _damageCache = 0;
                 }
+
+                if (state is GameState.PlayerPhase && gameObject.CompareTag("OpponentFieldUnit"))
+                {
+                    UpdateHp(15 * GameStateMachine.Instance.RoundNo);
+                }
+            };
+
+            GameStateMachine.Instance.RoundNoChanged += () =>
+            {
+                Hp = MaxHp;
+                animator.SetTrigger("TRaise");
             };
         }
 
