@@ -1,11 +1,16 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace CyberspaceOlympics
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IActionPointsSource
     {
+        [SerializeField]
+        private GameObject skillCursorVisual;
+        
         [SerializeField]
         private PlayerInput playerInput;
 
@@ -18,13 +23,31 @@ namespace CyberspaceOlympics
         [SerializeField]
         private Transform healVisualPrefab;
 
+        [SerializeField]
+        private int initialActionPoints = 3;
+
+        private IList<IActionPoint> _actionPoints = new List<IActionPoint>();
+
+        public IEnumerable<IReadonlyActionPoint> ActionPoints => _actionPoints;
+        
         private void Awake()
         {
+            for (var i = 0; i < initialActionPoints; i++)
+            {
+                _actionPoints.Add(new PlayerActionPoint());
+            }
+            
             ResetPosition();
             GameStateMachine.Instance.StateChanged += state =>
             {
                 if (state is GameState.RunningSimulation)
+                {
                     ResetPosition();
+                    foreach (var actionPoint in _actionPoints)
+                    {
+                        actionPoint.Reset();
+                    }
+                }
             };
         }
 
@@ -35,19 +58,15 @@ namespace CyberspaceOlympics
 
         private void Update()
         {
-            // Debug.Log(MouseUtils.Position());
-            // Debug.Log(MouseUtils.WorldPosition(Camera.main));
             if (GameStateMachine.Instance.CurrentState is not GameState.PlayerPhase)
             {
                 return;
             }
-
+            
             transform.position = MouseUtils.WorldPosition(Camera.main);
-            //
-            // var moveAction = playerInput.actions["Move"];
-            //
-            // if (moveAction.IsPressed())
-            //     transform.position += moveAction.ReadValue<Vector2>().ToVector3() * (Time.deltaTime * movementSpeed);
+            var hasUsableActionPoints = _actionPoints.Any(ap => ap.IsUsable);
+            Cursor.visible = !hasUsableActionPoints;
+            skillCursorVisual.SetActive(hasUsableActionPoints);
         }
 
         private void OnDrawGizmosSelected()
@@ -72,17 +91,27 @@ namespace CyberspaceOlympics
                 return;
             }
 
-            var hits = Physics2D.OverlapCircleAll(transform.position.ToVector2(), healRange).Where(h => h.CompareTag("PlayerFieldUnit")).ToArray();
-            if (hits.Any())
+            if (_actionPoints.All(ap => !ap.IsUsable))
+            {
+                return;
+            }
+
+            var hitFieldUnits = Physics2D
+                .OverlapCircleAll(transform.position.ToVector2(), healRange)
+                .Where(h => h.CompareTag("PlayerFieldUnit"))
+                .Select(hit => hit.GetComponent<FieldUnitController>())
+                .ToArray();
+            if (hitFieldUnits.Any(u => u.IsHurt))
             {
                 Instantiate(healVisualPrefab, transform.position, Quaternion.identity);
+                _actionPoints.First(ap => ap.IsUsable).Use();
             }
             
-            foreach (var hit in hits)
+            foreach (var unit in hitFieldUnits)
             {
-                var unitController = hit.GetComponent<FieldUnitController>();
-                unitController.UpdateHp(25);
+                unit.UpdateHp(25);
             }
         }
+
     }
 }

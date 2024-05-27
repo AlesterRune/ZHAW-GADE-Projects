@@ -80,7 +80,10 @@ namespace CyberspaceOlympics
         {
             const int ac = 12;
             var playerDie = RpgDieBuilder.OfType(DieType.D20).Build();
+            var playerDamageDie = RpgDieBuilder.OfType(DieType.D4).WithStatDie(1).Build();
             var opponentDie = RpgDieBuilder.OfType(DieType.D20).Build();
+            var opponentDamageDie = RpgDieBuilder.OfType(DieType.D4).WithStatDie(1).Build();
+            var damageBonus = GameStateMachine.Instance.RoundNo * 2;
             foreach (var (player, npc) in _playerUnits.Zip(_npcUnits, (p, n) => (Player: p, Npc: n)))
             {
                 if (!player.IsDead)
@@ -94,7 +97,8 @@ namespace CyberspaceOlympics
                     if (roll > ac)
                     {
                         player.PlayAttack();
-                        opponent?.UpdateHp(-Random.Range(2, 12), roll == 20);
+                        var damage = roll >= 20 ? 8 + playerDamageDie.Roll() : playerDamageDie.Roll(); 
+                        opponent?.UpdateHp(-damage, roll >= 20);
                     }
 
                     if (roll == 20)
@@ -114,10 +118,11 @@ namespace CyberspaceOlympics
                     if (roll > ac)
                     {
                         npc.PlayAttack();
-                        opponent?.UpdateHp(-Random.Range(2, 12), roll == 20);
+                        var damage = (roll >= 20 ? 8 + opponentDamageDie.Roll() : opponentDamageDie.Roll()) + damageBonus; 
+                        opponent?.UpdateHp(-damage, roll >= 20);
                     }
 
-                    if (roll == 20)
+                    if (roll >= 20)
                     {
                         OnOpponentCritical?.Invoke();
                     }
@@ -125,7 +130,7 @@ namespace CyberspaceOlympics
                     if (roll == 1)
                     {
                         var unluckyTarget = _npcUnits.Skip(Random.Range(0, _npcUnits.Count - 2)).Take(1).SingleOrDefault();
-                        unluckyTarget?.UpdateHp(-Random.Range(1, 8), true);
+                        unluckyTarget?.UpdateHp(-opponentDamageDie.Roll(), true);
                         OnPlayerCritical?.Invoke();
                     }
                 }

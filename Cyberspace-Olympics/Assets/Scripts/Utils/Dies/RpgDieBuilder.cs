@@ -68,7 +68,10 @@ namespace CyberspaceOlympics
             {
                 return new CompositeRpgDie(
                     baseDie,
-                    _statDies.Select(d => new RpgDie(d.Sides(), _seed)).ToArray()
+                    _statDies
+                        .Select(d => new RpgDie(d.Sides(), _seed))
+                        .OfType<IDie>()
+                        .ToArray()
                 );
             }
 

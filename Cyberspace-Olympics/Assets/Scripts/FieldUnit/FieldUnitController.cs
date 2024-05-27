@@ -36,8 +36,10 @@ namespace CyberspaceOlympics
         }
 
         public int ThreatLevel => threatLevel;
+
+        public bool IsHurt => Hp < MaxHp;
         
-        public bool IsHurt { get; internal set; }
+        public bool IsCriticalCondition { get; internal set; }
         
         public bool IsDead { get; internal set; }
         
@@ -95,9 +97,9 @@ namespace CyberspaceOlympics
 
         private void Update()
         {
-            IsHurt = hp <= 25;
+            IsCriticalCondition = hp <= 25;
             IsDead = hp == 0;
-            animator.SetBool("IsHurt", IsHurt);
+            animator.SetBool("IsCriticalCondition", IsCriticalCondition);
             animator.SetBool("IsDead", IsDead);
         }
 

@@ -4,12 +4,11 @@ namespace CyberspaceOlympics
 {
     public class RpgDie : IDie
     {
-        private readonly int _sides;
         private readonly Random _dieRng;
 
         internal RpgDie(int sides, int? seed = null)
         {
-            _sides = sides;
+            Max = sides;
             _dieRng = seed switch
             {
                 not null => new Random(seed.Value),
@@ -17,11 +16,11 @@ namespace CyberspaceOlympics
             };
         }
 
-        public int Max => _sides + 1;
-        
+        public int Max { get; }
+
         public int Roll()
         {
-            var roll = _dieRng.Next(_sides) + 1;
+            var roll = _dieRng.Next(Max) + 1;
             if (roll < Max)
             {
                 return roll;

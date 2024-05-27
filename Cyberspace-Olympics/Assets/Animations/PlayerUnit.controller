@@ -40,7 +40,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsHurt
+    m_ConditionEvent: IsCriticalCondition
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2503298371575901702}
@@ -121,7 +121,7 @@ AnimatorController:
   m_Name: PlayerUnit
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: IsHurt
+  - m_Name: IsCriticalCondition
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -192,7 +192,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: IsHurt
+    m_ConditionEvent: IsCriticalCondition
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3611171053766628618}

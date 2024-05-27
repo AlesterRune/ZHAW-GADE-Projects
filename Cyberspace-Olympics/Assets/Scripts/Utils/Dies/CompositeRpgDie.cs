@@ -7,7 +7,7 @@ namespace CyberspaceOlympics
         private readonly IDie _baseDie;
         private readonly IDie[] _sideDies;
 
-        public CompositeRpgDie(IDie baseDie, RpgDie[] sideDies)
+        public CompositeRpgDie(IDie baseDie, IDie[] sideDies)
         {
             _baseDie = baseDie;
             _sideDies = sideDies;
