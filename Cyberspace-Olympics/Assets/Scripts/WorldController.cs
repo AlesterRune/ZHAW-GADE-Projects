@@ -11,10 +11,11 @@ public class WorldController : MonoBehaviour
     private const int West = -16;
     private const int Center = 0;
  
-    // ReSharper disable once InconsistentNaming
+    
+    // ReSharper disable InconsistentNaming
     private const string TBorderSouth = "t-border-s";
-    // ReSharper disable once InconsistentNaming
     private const string TBorderNorth = "t-border-n";
+    // ReSharper restore InconsistentNaming
     private const string CornerNorthEast = "corner-ne";
     private const string CornerNorthWest = "corner-nw";
     private const string CornerSouthEast = "corner-se";
