@@ -10,6 +10,21 @@ public class WorldController : MonoBehaviour
     private const int South = -7;
     private const int West = -16;
     private const int Center = 0;
+ 
+    // ReSharper disable once InconsistentNaming
+    private const string TBorderSouth = "t-border-s";
+    // ReSharper disable once InconsistentNaming
+    private const string TBorderNorth = "t-border-n";
+    private const string CornerNorthEast = "corner-ne";
+    private const string CornerNorthWest = "corner-nw";
+    private const string CornerSouthEast = "corner-se";
+    private const string CornerSouthWest = "corner-sw";
+    private const string BorderNorth = "border-n";
+    private const string BorderSouth = "border-s";
+    private const string BorderEast = "border-e";
+    private const string BorderWest = "border-w";
+    private const string CenterWithLine = "center-line";
+    private const string CenterNoLine = "center";
     
     [SerializeField]
     private Sprite[] sprites;
@@ -60,24 +75,24 @@ public class WorldController : MonoBehaviour
     {
         return (x, y) switch
         {
-            (East, North) => sprites.First(s => s.name == "corner-ne"),
-            (West, North) => sprites.First(s => s.name == "corner-nw"),
-            (Center, North) => sprites.First(s => s.name == "north-t"),
-            (_, North) when Mathf.CeilToInt(East / 2f) == x => sprites.First(s => s.name == "north-t"),
-            (_, North) when Mathf.CeilToInt(West / 2f) == x => sprites.First(s => s.name == "north-t"),
-            (_, North) => sprites.First(s => s.name == "north"),
-            (East, South) => sprites.First(s => s.name == "corner-se"),
-            (West, South) => sprites.First(s => s.name == "corner-sw"),
-            (Center, South) => sprites.First(s => s.name == "south-t"),
-            (_, South) when Mathf.CeilToInt(East / 2f) == x => sprites.First(s => s.name == "south-t"),
-            (_, South) when Mathf.CeilToInt(West / 2f) == x => sprites.First(s => s.name == "south-t"),
-            (_, South) => sprites.First(s => s.name == "south"),
-            (_, _) when Mathf.CeilToInt(East / 2f) == x => sprites.First(s => s.name == "center-i"),
-            (_, _) when Mathf.CeilToInt(West / 2f) == x => sprites.First(s => s.name == "center-i"),
-            (East, _) => sprites.First(s => s.name == "east"),
-            (West, _) => sprites.First(s => s.name == "west"),
-            (Center, _) => sprites.First(s => s.name == "center-i"),
-            _ => sprites.First(s => s.name == "center")
+            (East, North) => sprites.First(s => s.name == CornerNorthEast),
+            (West, North) => sprites.First(s => s.name == CornerNorthWest),
+            (Center, North) => sprites.First(s => s.name == TBorderNorth),
+            (_, North) when Mathf.CeilToInt(East / 2f) == x => sprites.First(s => s.name == TBorderNorth),
+            (_, North) when Mathf.CeilToInt(West / 2f) == x => sprites.First(s => s.name == TBorderNorth),
+            (_, North) => sprites.First(s => s.name == BorderNorth),
+            (East, South) => sprites.First(s => s.name == CornerSouthEast),
+            (West, South) => sprites.First(s => s.name == CornerSouthWest),
+            (Center, South) => sprites.First(s => s.name == TBorderSouth),
+            (_, South) when Mathf.CeilToInt(East / 2f) == x => sprites.First(s => s.name == TBorderSouth),
+            (_, South) when Mathf.CeilToInt(West / 2f) == x => sprites.First(s => s.name == TBorderSouth),
+            (_, South) => sprites.First(s => s.name == BorderSouth),
+            (_, _) when Mathf.CeilToInt(East / 2f) == x => sprites.First(s => s.name == CenterWithLine),
+            (_, _) when Mathf.CeilToInt(West / 2f) == x => sprites.First(s => s.name == CenterWithLine),
+            (East, _) => sprites.First(s => s.name == BorderEast),
+            (West, _) => sprites.First(s => s.name == BorderWest),
+            (Center, _) => sprites.First(s => s.name == CenterWithLine),
+            _ => sprites.First(s => s.name == CenterNoLine)
         };
     }
 }
