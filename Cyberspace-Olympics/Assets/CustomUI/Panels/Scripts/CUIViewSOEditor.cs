@@ -2,6 +2,7 @@
 
 namespace CUI.Panels
 {
+#if UNITY_EDITOR
     [CanEditMultipleObjects]
     [CustomEditor(typeof(CUIViewSO))]
     public class CUIViewSOEditor : Editor
@@ -21,4 +22,5 @@ namespace CUI.Panels
             serializedObject.ApplyModifiedProperties();
         }
     }
+#endif
 }

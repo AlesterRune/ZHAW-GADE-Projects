@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace CyberspaceOlympics
@@ -55,8 +54,8 @@ namespace CyberspaceOlympics
             menuBackground.SetEnabled(true);
             gameInfo.enabled = false;
             hudActionButtonButton.interactable = false; 
-            startButton.onClick.AddListener(StartGame);
             hudActionButtonButton.onClick.AddListener(StartSimulation);
+            startButton.onClick.AddListener(StartGame);
             exitButton.onClick.AddListener(ExitGame);
             
             GameStateMachine.Instance.StateChanged += OnGameStateChanged;
@@ -83,14 +82,14 @@ namespace CyberspaceOlympics
             if (state is GameState.PlayerLose or GameState.PlayerWin)
             {
                 hudActionButtonButton.GetComponentInChildren<TMP_Text>().SetText("Next Round");
-                hudActionButtonButton.onClick.RemoveAllListeners();
+                hudActionButtonButton.onClick.RemoveListener(StartSimulation);
                 hudActionButtonButton.onClick.AddListener(NextRound);
             }
         }
 
         private void NextRound()
         {
-            hudActionButtonButton.onClick.RemoveAllListeners();
+            hudActionButtonButton.onClick.RemoveListener(NextRound);
             hudActionButtonButton.onClick.AddListener(StartSimulation);
             hudActionButtonButton.GetComponentInChildren<TMP_Text>().SetText("Continue");
             StartSimulation();
@@ -98,10 +97,10 @@ namespace CyberspaceOlympics
 
         private void StartGame()
         {
-            menuBackground.gameObject.SetActive(false);
             startButton.onClick.RemoveListener(StartGame);
-            startButton.GetComponentInChildren<TMP_Text>().SetText("Back");
             startButton.onClick.AddListener(ToggleMenu);
+            menuBackground.gameObject.SetActive(false);
+            startButton.GetComponentInChildren<TMP_Text>().SetText("Back");
             GameStateMachine.Instance.TransitionTo(GameState.RunningSimulation);
         }
     }
