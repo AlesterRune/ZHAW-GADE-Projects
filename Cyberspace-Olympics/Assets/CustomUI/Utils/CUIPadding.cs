@@ -1,6 +1,5 @@
 ﻿using System;
 using CUI;
-using CUI.Panels;
 using UnityEngine;
 
 namespace CustomUI

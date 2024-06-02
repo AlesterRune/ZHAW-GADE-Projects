@@ -659,7 +659,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Range",
     "m_StageCapability": 3,
-    "m_Value": 0.009999999776482582,
+    "m_Value": 0.25,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -687,7 +687,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Range",
     "m_StageCapability": 3,
-    "m_Value": 0.009999999776482582,
+    "m_Value": 0.25,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -960,9 +960,9 @@
     "m_ShaderOutputName": "From",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.8627451062202454,
-        "y": 0.8627451062202454,
-        "z": 0.8627451062202454
+        "x": 0.8627451658248901,
+        "y": 0.8627451658248901,
+        "z": 0.8627451658248901
     },
     "m_DefaultValue": {
         "x": 0.0,
@@ -1429,7 +1429,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":-8328923581568760697,\"guid\":\"ee44e3db1caf01746980784553187055\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"802265b1457c4854cb7381fcc54b7aac\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -1537,9 +1537,9 @@
     "m_ShaderOutputName": "From",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.3921568989753723,
-        "y": 0.3921568989753723,
-        "z": 0.3921568989753723
+        "x": 0.8705883026123047,
+        "y": 0.8588235974311829,
+        "z": 0.8705883026123047
     },
     "m_DefaultValue": {
         "x": 0.0,
@@ -1736,9 +1736,9 @@
     "m_ShaderOutputName": "From",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.3137255012989044,
-        "y": 0.3137255012989044,
-        "z": 0.3137255012989044
+        "x": 0.8078432083129883,
+        "y": 0.7764706611633301,
+        "z": 0.7529412508010864
     },
     "m_DefaultValue": {
         "x": 0.0,
@@ -2343,7 +2343,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Range",
     "m_StageCapability": 3,
-    "m_Value": 0.0,
+    "m_Value": 0.25,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }

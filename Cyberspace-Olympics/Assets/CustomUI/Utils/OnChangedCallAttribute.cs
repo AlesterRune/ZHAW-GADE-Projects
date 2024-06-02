@@ -15,8 +15,7 @@ namespace CUI
         public string MethodName { get; }
     }
     
-    #if UNITY_EDITOR
-        
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(OnChangedCallAttribute))]
     public class OnChangedCallAttributePropertyDrawer : PropertyDrawer
     {
@@ -49,6 +48,5 @@ namespace CUI
             }
         }
     }
-    
-    #endif
+#endif
 }

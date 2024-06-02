@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace CyberspaceOlympics
 {
@@ -60,6 +59,7 @@ namespace CyberspaceOlympics
         {
             if (GameStateMachine.Instance.CurrentState is not GameState.PlayerPhase)
             {
+                Cursor.visible = true;
                 return;
             }
             

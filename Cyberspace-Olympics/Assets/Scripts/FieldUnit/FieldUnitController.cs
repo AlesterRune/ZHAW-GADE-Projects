@@ -22,6 +22,9 @@ namespace CyberspaceOlympics
         private int threatLevel = 10;
 
         [SerializeField]
+        private AudioSource impactAudio;
+
+        [SerializeField]
         [CanBeNull]
         private AudioSource critCheer = null;
         
@@ -55,6 +58,11 @@ namespace CyberspaceOlympics
             if (isCritical && critCheer is not null)
             {
                 critCheer?.Play();
+            }
+
+            if (isCritical && value < 0 && !impactAudio.isPlaying)
+            {
+                impactAudio.Play();
             }
             
             Hp += value;
